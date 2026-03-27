@@ -8,12 +8,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // 🔥 YOUR TWILIO DETAILS
-const accountSid = "process.env.TWILIO_ACCOUNT_SID";
-const authToken = "process.env.TWILIO_AUTH_TOKEN";
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 // 🔥 YOUR TWILIO NUMBER
-const twilioNumber = "+14788004130";
+const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 
 // OTP store
 let otpStore = {};
@@ -58,6 +58,8 @@ app.post("/verify-otp", (req, res) => {
 });
 
 // SERVER START
-app.listen(3000, () => {
-  console.log("🔥 OTP Server running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🔥 Server running on port ${PORT}`);
 });
